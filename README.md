@@ -4,6 +4,17 @@
 
 ## Project Overview
 
+## Full Project Documentation
+
+For a complete visual walkthrough of the AWS deployment, security configuration, Cowrie installation, controlled testing, observed activity, log analysis, challenges, and lessons learned:
+
+➡️ **[View the Complete AWS Cowrie Honeypot Project (PDF)](docs/AWS-Cowrie-Honeypot-Project.pdf)**
+
+The PDF provides a step-by-step visual walkthrough of the project, while this README provides the technical documentation and key findings.
+
+---
+
+
 As part of my cybersecurity learning journey, I wanted to move beyond analyzing prepared datasets and build a live environment where I could observe how Internet-facing systems are discovered and probed.
 
 The idea was inspired by a honeypot analysis project I completed during my cybersecurity internship with the Ubuntu Bridge Initiative.

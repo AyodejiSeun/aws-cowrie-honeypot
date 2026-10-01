@@ -2,8 +2,6 @@
 
 > Deploying a Cowrie SSH honeypot on AWS EC2 to capture, analyze, and document real-world SSH scanning and authentication activity.
 
-## Project Overview
-
 ## Full Project Documentation
 
 For a complete visual walkthrough of the AWS deployment, security configuration, Cowrie installation, controlled testing, observed activity, log analysis, challenges, and lessons learned:
@@ -12,8 +10,8 @@ For a complete visual walkthrough of the AWS deployment, security configuration,
 
 The PDF provides a step-by-step visual walkthrough of the project, while this README provides the technical documentation and key findings.
 
----
 
+## Project Overview
 
 As part of my cybersecurity learning journey, I wanted to move beyond analyzing prepared datasets and build a live environment where I could observe how Internet-facing systems are discovered and probed.
 
@@ -94,7 +92,7 @@ The deployment process included:
 The Ubuntu EC2 instance used to host the Cowrie honeypot:
 
 ![AWS EC2 instance used for the Cowrie honeypot](screenshots/01-aws-ec2-instance.png)
----
+
 
 ## 2. Security Group Configuration
 
@@ -116,7 +114,7 @@ This allowed Internet systems to interact with the decoy SSH service while keepi
 The Security Group separated administrative access from the honeypot service. TCP port 22 was used for real SSH administration, while TCP port 2222 was exposed for Cowrie.
 
 ![AWS Security Group configuration for ports 22 and 2222](screenshots/02-security-group-ports-22-2222.png)
----
+
 
 ## 3. Connecting to the Real EC2 Server
 
@@ -138,7 +136,7 @@ A successful connection displayed the Ubuntu login banner and system information
 
 > **Note:** Public IP addresses and identifying information shown in the project screenshots have been sanitized before publication.
 
----
+
 
 ## 4. Preparing the Ubuntu Server
 
@@ -155,7 +153,7 @@ I verified that Python and Git were available before proceeding with the Cowrie 
 ![Python and Git dependency verification](screenshots/04-server-dependencies-python-git.png)
 I then prepared the environment required to install Cowrie.
 
----
+
 
 ## 5. Installing Cowrie
 
@@ -195,7 +193,7 @@ Cowrie was cloned onto the Ubuntu EC2 server and the project directory was verif
 A dedicated Python virtual environment was created and activated to isolate Cowrie's dependencies from the system Python installation.
 
 ![Cowrie Python virtual environment](screenshots/06-cowrie-virtual-environment.png)
----
+
 
 ## 6. Configuring Cowrie
 
@@ -249,7 +247,6 @@ cat /etc/hostname
 
 These commands interacted with Cowrie's simulated environment rather than the underlying Ubuntu operating system.
 
----
 
 ## 8. Observing Internet Activity
 
@@ -272,7 +269,6 @@ One recurring reconnaissance command observed in the logs was:
 
 Repeated execution of commands like this indicated automated attempts to obtain information about the target environment.
 
----
 
 ## 9. Log Analysis
 
@@ -307,7 +303,7 @@ The Cowrie JSON logs provided visibility into connection events, sessions and co
 ![Cowrie JSON log analysis](screenshots/08-cowrie-json-log-analysis.png)
 
 > Source information and other potentially sensitive identifiers have been sanitized before publication.
----
+
 
 ## 10. Observed Dataset
 
@@ -329,7 +325,7 @@ Authentication occurred inside the intentionally exposed Cowrie deception enviro
 
 The dataset also contained some of my controlled testing activity, so these figures should not be interpreted as representing malicious activity exclusively.
 
----
+
 
 ## 11. Evidence Preservation
 
@@ -341,7 +337,7 @@ This introduced an important incident-response principle:
 
 **Collect → Preserve → Hash → Analyze**
 
----
+
 
 ## Challenges Encountered
 
@@ -363,7 +359,7 @@ Other challenges I encountered included:
 
 Troubleshooting these issues became an important part of the learning experience.
 
----
+
 
 ## Key Lessons Learned
 
@@ -387,7 +383,7 @@ This project strengthened my practical understanding of:
 
 Most importantly, the project helped me move from reading about attacker behaviour to collecting and analyzing security telemetry from a controlled environment.
 
----
+
 
 ## Security Considerations
 
@@ -400,7 +396,7 @@ The environment was intentionally designed to reduce risk.
 - Public IP addresses were masked.
 - Private SSH keys and credentials are not included in this repository.
 
----
+
 
 ## Disclaimer
 
@@ -408,7 +404,7 @@ This project was conducted for **educational and cybersecurity research purposes
 
 Sensitive information, credentials, administrative IP addresses and personally identifiable information have been removed or sanitized before publication.
 
----
+
 
 ## Future Improvements
 
@@ -421,12 +417,12 @@ Future improvements could include:
 - Mapping observed behaviour to MITRE ATT&CK.
 - Creating alerts for interesting sessions.
 
----
+
 
 ## Author
 
 **Ayodeji Ogungbire**
 
-IT Infrastructure & Support Professional | Cybersecurity Enthusiast
+IT Infrastructure & Support Professional | Cybersecurity Enthusiast | Cloud Engineer
 
 This project forms part of my practical cybersecurity learning and portfolio development.

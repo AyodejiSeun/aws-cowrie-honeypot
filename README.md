@@ -1,106 +1,54 @@
-# aws-cowrie-honeypot
-Deploying a Cowrie SSH honeypot on AWS EC2 to capture, analyze, and document real-world SSH scanning and authentication activity.
-# AWS Cowrie SSH Honeypot
+# 🛡️ AWS Cowrie SSH Honeypot
+
+> Deploying a Cowrie SSH honeypot on AWS EC2 to capture, analyze, and document real-world SSH scanning and authentication activity.
 
 ## Project Overview
 
-I built and deployed a Cowrie SSH honeypot on AWS EC2 to observe
-real-world SSH scanning, credential attempts, reconnaissance activity,
-and attacker interaction with a controlled decoy environment.
+As part of my cybersecurity learning journey, I wanted to move beyond analyzing prepared datasets and build a live environment where I could observe how Internet-facing systems are discovered and probed.
+
+The idea was inspired by a honeypot analysis project I completed during my cybersecurity internship with the Ubuntu Bridge Initiative.
+
+I initially attempted to deploy T-Pot on AWS. However, the limited resources available on the EC2 instance caused problems with Docker and the services required by T-Pot.
+
+Rather than abandoning the project, I changed my approach and deployed **Cowrie**, a lightweight SSH/Telnet honeypot designed to log brute-force attempts and attacker interactions.
+
+The final environment allowed me to observe unsolicited SSH activity, perform controlled testing, analyze Cowrie JSON logs, and practice evidence preservation.
+
+
+## Project Objectives
+
+The objectives of this project were to:
+
+- Deploy an Internet-facing honeypot in AWS.
+- Secure administrative access to the underlying server.
+- Separate real SSH administration from the honeypot service.
+- Capture SSH connection and authentication activity.
+- Observe commands executed inside the decoy environment.
+- Analyze Cowrie JSON logs.
+- Distinguish controlled testing from unsolicited Internet activity.
+- Preserve collected evidence safely.
+- Develop practical SOC and threat-analysis skills.
+
+
 
 ## Architecture
 
-Internet
-    |
-    | TCP 2222
-    v
-AWS Security Group
-    |
-    v
-Ubuntu EC2
-    |
-    +---- TCP 22 ----> Real SSH Administration
-    |
-    +---- TCP 2222 --> Cowrie Honeypot
+The environment was designed so that the real Ubuntu server and the Cowrie honeypot used different SSH ports.
 
-## Security Configuration
 
-TCP 22:
-Restricted to my administrative IP address.
-
-TCP 2222:
-Exposed to the Internet for Cowrie SSH honeypot traffic.
-
-## Deployment
-
-1. Launched Ubuntu EC2 instance
-2. Configured AWS Security Group
-3. Connected to EC2 using SSH and PEM key
-4. Installed Python and Git
-5. Created dedicated Cowrie user
-6. Cloned Cowrie
-7. Created Python virtual environment
-8. Installed and initialized Cowrie
-9. Configured Cowrie on TCP port 2222
-10. Performed controlled SSH testing
-11. Collected and analyzed Cowrie JSON logs
-12. Preserved evidence and calculated hashes
-
-## Connecting to the Real EC2 Server
-
-Administrative access was performed over TCP port 22:
-
-ssh -i "myhoneypotkey.pem" ubuntu@<EC2-PUBLIC-IP>
-
-TCP 22 was restricted through the AWS Security Group.
-
-## Cowrie Honeypot
-
-Cowrie was configured to listen on:
-
-tcp:2222:interface=0.0.0.0
-
-A controlled test was performed using:
-
-ssh -p 2222 admin1@<EC2-PUBLIC-IP>
-
-## Observations
-
-The honeypot recorded:
-
-- 54 connection events
-- 25 successful decoy logins
-- 40 commands executed
-- 25 unique source IP addresses
-- 0 file downloads
-
-Observed behaviour included credential scanning,
-system reconnaissance, SSH probing, and service discovery.
-
-## Evidence Preservation
-
-Cowrie logs, TTY sessions, and downloaded-file directories were
-archived and hashed using SHA-256.
-
-## Key Lessons
-
-This project helped me gain practical experience with:
-
-- AWS EC2
-- AWS Security Groups
-- Linux administration
-- SSH
-- Cowrie
-- Honeypot deployment
-- JSON log analysis
-- Threat hunting
-- Evidence preservation
-- Basic attacker-behaviour analysis
-
-## Disclaimer
-
-This project was conducted in an isolated cloud environment for
-educational and cybersecurity research purposes.
-
-Sensitive information, administrative IP addresses, and identifying
-information have been removed or sanitized.
+                    Internet
+                       |
+                       |
+                AWS Security Group
+                  /           \
+                 /             \
+        TCP Port 22          TCP Port 2222
+             |                    |
+             |                    |
+      Real Ubuntu EC2       Cowrie Honeypot
+             |                    |
+     Administrative          Decoy SSH Service
+         Access             / Attacker Activity
+             |
+      Restricted to
+    Administrator IP

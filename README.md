@@ -78,7 +78,11 @@ The deployment process included:
 5. Creating a Security Group.
 6. Restricting administrative SSH access.
 7. Allowing traffic to the Cowrie SSH service.
+### AWS EC2 Instance
 
+The Ubuntu EC2 instance used to host the Cowrie honeypot:
+
+![AWS EC2 instance used for the Cowrie honeypot](screenshots/01-aws-ec2-instance.png)
 ---
 
 ## 2. Security Group Configuration
@@ -96,7 +100,11 @@ This allowed me to manage the Ubuntu server without exposing the real SSH servic
 Port 2222 was opened for the Cowrie SSH honeypot.
 
 This allowed Internet systems to interact with the decoy SSH service while keeping the actual administrative SSH service separate.
+### Security Group Rules
 
+The Security Group separated administrative access from the honeypot service. TCP port 22 was used for real SSH administration, while TCP port 2222 was exposed for Cowrie.
+
+![AWS Security Group configuration for ports 22 and 2222](screenshots/02-security-group-ports-22-2222.png)
 ---
 
 ## 3. Connecting to the Real EC2 Server
@@ -108,7 +116,13 @@ Example:
 ```bash
 ssh -i "myhoneypotkey.pem" ubuntu@<EC2-PUBLIC-IP>
 ```
+### Successful Administrative SSH Connection
 
+The screenshot below shows a successful SSH connection from my Windows machine to the real Ubuntu EC2 instance using TCP port 22 and the associated private key.
+
+![Successful SSH connection to the real Ubuntu EC2 server on port 22](screenshots/03-real-ec2-ssh-port-22.png)
+
+> Sensitive information, including the public IP address and local identifying information, has been redacted.
 A successful connection displayed the Ubuntu login banner and system information.
 
 > **Note:** Public IP addresses and identifying information shown in the project screenshots have been sanitized before publication.
@@ -123,7 +137,11 @@ After connecting to the server, I verified the tools required for the project.
 python3 --version
 git --version
 ```
+### Dependency Verification
 
+I verified that Python and Git were available before proceeding with the Cowrie installation.
+
+![Python and Git dependency verification](screenshots/04-server-dependencies-python-git.png)
 I then prepared the environment required to install Cowrie.
 
 ---
@@ -155,7 +173,17 @@ source cowrie-env/bin/activate
 ```
 
 The virtual environment allowed the Python packages required by Cowrie to remain isolated from the system-wide Python installation.
+### Cloning the Cowrie Repository
 
+Cowrie was cloned onto the Ubuntu EC2 server and the project directory was verified before continuing with the installation.
+
+![Cloning and accessing the Cowrie project directory](screenshots/05-cowrie-clone-and-directory.png)
+
+### Python Virtual Environment
+
+A dedicated Python virtual environment was created and activated to isolate Cowrie's dependencies from the system Python installation.
+
+![Cowrie Python virtual environment](screenshots/06-cowrie-virtual-environment.png)
 ---
 
 ## 6. Configuring Cowrie
@@ -169,7 +197,11 @@ tcp:2222:interface=0.0.0.0
 ```
 
 This allowed Cowrie to accept SSH connections on TCP port 2222 while the real Ubuntu SSH service remained on TCP port 22.
+### Verifying the Cowrie Listener
 
+After configuration, I verified that Cowrie was running and listening on TCP port 2222.
+
+![Cowrie running and listening on TCP port 2222](screenshots/07-cowrie-running-port-2222.png)
 ---
 
 ## 7. Controlled Testing
@@ -257,7 +289,13 @@ sensor
 ```
 
 These fields helped me determine when connections occurred, identify individual sessions, review authentication activity and reconstruct commands entered during a session.
+### Cowrie JSON Log Evidence
 
+The Cowrie JSON logs provided visibility into connection events, sessions and commands executed inside the decoy environment.
+
+![Cowrie JSON log analysis](screenshots/08-cowrie-json-log-analysis.png)
+
+> Source information and other potentially sensitive identifiers have been sanitized before publication.
 ---
 
 ## 10. Observed Dataset

@@ -10,6 +10,12 @@ For a complete visual walkthrough of the AWS deployment, security configuration,
 
 The PDF provides a step-by-step visual walkthrough of the project, while this README provides the technical documentation and key findings.
 
+## SOC Analysis Follow-up
+
+After collecting additional Cowrie telemetry, I carried out a SOC-style follow-up investigation covering automated password guessing, post-authentication activity, MITRE ATT&CK mapping, masked source indicators, analyst limitations, and recommended escalation actions.
+
+➡️ **[View the SOC Analysis Follow-up](analysis/README.md)**
+
 
 ## Project Overview
 
